@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity FinTech | Multi-Currency Double-Entry Ledger</title>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fas fa-coins"></i>
+        </div>
+        <div class="brand-text">
+          <h2>ANTIGRAVITY</h2>
+          <span>FINTECH LEDGER</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#overview" class="nav-item active">
+          <i class="fas fa-wallet"></i> Wallets & Overview
+        </a>
+        <a href="#exchange" class="nav-item">
+          <i class="fas fa-arrow-right-arrow-left"></i> FX Currency Convert
+        </a>
+        <a href="#transfers" class="nav-item">
+          <i class="fas fa-paper-plane"></i> P2P Remittance
+        </a>
+        <a href="#ledger-audit" class="nav-item">
+          <i class="fas fa-scale-balanced"></i> Double-Entry Audit
+        </a>
+        <a href="#statements" class="nav-item">
+          <i class="fas fa-file-pdf"></i> PDF Statements
+        </a>
+        <a href="/docs" target="_blank" class="nav-item">
+          <i class="fas fa-code"></i> OpenAPI / Swagger
+        </a>
+      </nav>
+
+      <div class="user-profile-widget">
+        <div class="user-info">
+          <div class="user-avatar" id="user-avatar">K</div>
+          <div class="user-details">
+            <h4 id="user-name">Kofi Mensah</h4>
+            <p id="user-email">demo.developer@antigravity.io</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-title">
+          <h1>Multi-Currency Financial Dashboard</h1>
+          <p>Real-time FX conversion with strict double-entry balance guarantees</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="openDepositModal('USD')">
+            <i class="fas fa-plus"></i> Fund Wallet
+          </button>
+          <a href="/docs" target="_blank" class="btn btn-outline">
+            <i class="fas fa-terminal"></i> API Docs
+          </a>
+        </div>
+      </header>
+
+      <!-- Live Exchange Rate Ticker Bar -->
+      <section class="ticker-bar">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="live-pulse"></span>
+          <span style="font-size:0.75rem; text-transform:uppercase; font-weight:700; letter-spacing:0.05em; color:var(--text-sub);">Live FX Rates:</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">USD / GHS:</span>
+          <span class="ticker-value" id="ticker-usd-ghs">1 USD = 11.12 GHS</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">USD / GBP:</span>
+          <span class="ticker-value" id="ticker-usd-gbp">1 USD = 0.73 GBP</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">GBP / GHS:</span>
+          <span class="ticker-value" id="ticker-gbp-ghs">1 GBP = 15.15 GHS</span>
+        </div>
+      </section>
+
+      <!-- Multi-Currency Wallet Balances Cards -->
+      <section class="cards-grid" id="overview">
+        
+        <!-- USD Wallet -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">US Dollar Wallet</span>
+            <span class="currency-badge badge-usd">USD ($)</span>
+          </div>
+          <div class="balance-amount" id="usd-balance">$0.00</div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="balance-sub">Primary Reserve Account</span>
+            <button class="btn btn-outline btn-sm" onclick="openDepositModal('USD')">+ Deposit</button>
+          </div>
+        </div>
+
+        <!-- GHS Wallet -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Ghanaian Cedi Wallet</span>
+            <span class="currency-badge badge-ghs">GHS (GH₵)</span>
+          </div>
+          <div class="balance-amount" id="ghs-balance">GH₵ 0.00</div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="balance-sub">West Africa Hub</span>
+            <button class="btn btn-outline btn-sm" onclick="openDepositModal('GHS')">+ Deposit</button>
+          </div>
+        </div>
+
+        <!-- GBP Wallet -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">British Pound Wallet</span>
+            <span class="currency-badge badge-gbp">GBP (£)</span>
+          </div>
+          <div class="balance-amount" id="gbp-balance">£0.00</div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="balance-sub">UK Sterling Account</span>
+            <button class="btn btn-outline btn-sm" onclick="openDepositModal('GBP')">+ Deposit</button>
+          </div>
+        </div>
+
+        <!-- Total Portfolio Balance -->
+        <div class="card" style="border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(17, 24, 39, 0.9), rgba(30, 58, 138, 0.25));">
+          <div class="card-header">
+            <span class="card-title" style="color:var(--accent-cyan);">Total Net Worth</span>
+            <span class="currency-badge badge-usd">USD EQUIVALENT</span>
+          </div>
+          <div class="balance-amount" id="total-usd-estimate" style="color:#60A5FA;">$0.00</div>
+          <span class="balance-sub">Consolidated Real-Time Value</span>
+        </div>
+
+      </section>
+
+      <!-- Dashboard Interactive Grid -->
+      <div class="dashboard-grid">
+        
+        <!-- Left Column: FX Exchange Station & Ledger History -->
+        <div style="display:flex; flex-direction:column; gap: 24px;">
+          
+          <!-- Live FX Conversion Station -->
+          <div class="panel" id="exchange">
+            <div class="panel-header">
+              <h3><i class="fas fa-arrow-right-arrow-left" style="color:var(--primary);"></i> Live Currency Exchange</h3>
+              <span class="currency-badge badge-usd">Redis Cached FX</span>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+              <div class="form-group">
+                <label>From Currency</label>
+                <select id="convert-source-currency" class="form-control select-control">
+                  <option value="USD" selected>USD - US Dollar ($)</option>
+                  <option value="GHS">GHS - Ghanaian Cedi (GH₵)</option>
+                  <option value="GBP">GBP - British Pound (£)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>To Currency</label>
+                <select id="convert-target-currency" class="form-control select-control">
+                  <option value="GHS" selected>GHS - Ghanaian Cedi (GH₵)</option>
+                  <option value="USD">USD - US Dollar ($)</option>
+                  <option value="GBP">GBP - British Pound (£)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Amount to Convert</label>
+              <div style="display:flex; gap:12px;">
+                <input type="number" id="convert-amount" class="form-control" placeholder="100.00" step="0.01" min="1">
+                <button id="btn-get-quote" class="btn btn-primary" style="white-space:nowrap;">
+                  <i class="fas fa-calculator"></i> Get Live FX Quote
+                </button>
+              </div>
+            </div>
+
+            <!-- Quote Preview Card -->
+            <div id="quote-preview-box" class="quote-box">
+              <div class="quote-row">
+                <span style="color:var(--text-muted);">Exchange Rate:</span>
+                <b id="quote-rate-text" style="color:var(--accent-cyan); font-family:var(--font-mono);">—</b>
+              </div>
+              <div class="quote-row">
+                <span style="color:var(--text-muted);">Platform Fee:</span>
+                <span id="quote-fee-text">—</span>
+              </div>
+              <div class="quote-row" style="font-size:1.1rem; border-top:1px solid rgba(255,255,255,0.08); padding-top:8px; margin-top:8px;">
+                <span>You Will Receive:</span>
+                <b id="quote-payout-text" style="color:var(--accent-emerald); font-family:var(--font-mono);">—</b>
+              </div>
+              
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
+                <span style="font-size:0.75rem; color:var(--accent-amber);"><i class="fas fa-clock"></i> Guaranteed rate expires in 60s:</span>
+              </div>
+              <div class="quote-countdown-bar" id="quote-progress-bar"></div>
+
+              <button id="btn-execute-convert" class="btn btn-success" style="width:100%; margin-top:14px;">
+                <i class="fas fa-check"></i> Confirm & Execute Conversion
+              </button>
+            </div>
+          </div>
+
+          <!-- Double-Entry Transaction Ledger Table -->
+          <div class="panel">
+            <div class="panel-header">
+              <h3><i class="fas fa-list-check" style="color:var(--accent-cyan);"></i> Double-Entry Ledger Stream</h3>
+              <span class="currency-badge badge-usd">Real-time Postings</span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="ledger-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Currency</th>
+                    <th>Account Leg</th>
+                    <th>Amount</th>
+                    <th>Balance Snapshot</th>
+                  </tr>
+                </thead>
+                <tbody id="ledger-table-body">
+                  <tr>
+                    <td colspan="5" style="text-align:center; padding: 24px; color: var(--text-sub);">
+                      <i class="fas fa-spinner fa-spin"></i> Loading ledger records...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: P2P Remittance, Double-Entry Audit & PDF Statements -->
+        <div style="display:flex; flex-direction:column; gap: 24px;">
+          
+          <!-- Double-Entry Mathematical Audit Widget -->
+          <div class="panel" id="ledger-audit">
+            <div class="panel-header">
+              <h3><i class="fas fa-scale-balanced" style="color:var(--accent-emerald);"></i> Ledger Balance Security</h3>
+              <span class="currency-badge badge-gbp" id="audit-status-badge">
+                <i class="fas fa-check-circle"></i> VERIFIED BALANCED
+              </span>
+            </div>
+
+            <p style="font-size:0.85rem; color:var(--text-muted);" id="audit-message">
+              Checking mathematical zero-sum invariants across all wallets and system float accounts...
+            </p>
+
+            <div id="audit-details"></div>
+          </div>
+
+          <!-- P2P International Remittance -->
+          <div class="panel" id="transfers">
+            <div class="panel-header">
+              <h3><i class="fas fa-paper-plane" style="color:var(--accent-cyan);"></i> P2P Remittance</h3>
+              <span class="currency-badge badge-usd">Multi-Currency</span>
+            </div>
+
+            <div class="form-group">
+              <label>Recipient User Email</label>
+              <input type="email" id="p2p-recipient" class="form-control" placeholder="jane.smith@example.com">
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+              <div class="form-group">
+                <label>Send Currency</label>
+                <select id="p2p-src-curr" class="form-control select-control">
+                  <option value="USD" selected>USD ($)</option>
+                  <option value="GBP">GBP (£)</option>
+                  <option value="GHS">GHS (GH₵)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Recipient Receives</label>
+                <select id="p2p-tgt-curr" class="form-control select-control">
+                  <option value="GHS" selected>GHS (GH₵)</option>
+                  <option value="USD">USD ($)</option>
+                  <option value="GBP">GBP (£)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Amount to Send</label>
+              <input type="number" id="p2p-amount" class="form-control" placeholder="50.00" step="0.01">
+            </div>
+
+            <div class="form-group">
+              <label>Transfer Description / Memo</label>
+              <input type="text" id="p2p-desc" class="form-control" placeholder="Ghana Remittance Support">
+            </div>
+
+            <button id="btn-send-p2p" class="btn btn-primary" style="width:100%;">
+              <i class="fas fa-paper-plane"></i> Send Instant Transfer
+            </button>
+          </div>
+
+          <!-- PDF Monthly Statement Generator -->
+          <div class="panel" id="statements">
+            <div class="panel-header">
+              <h3><i class="fas fa-file-pdf" style="color:var(--accent-rose);"></i> PDF Statement Generator</h3>
+              <span class="currency-badge badge-ghs">ReportLab</span>
+            </div>
+
+            <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:14px;">
+              Compiles transactions into a certified, downloadable bank statement using ReportLab and Celery background workers.
+            </p>
+
+            <div class="form-group">
+              <label>Choose Account Wallet</label>
+              <select id="stmt-wallet-select" class="form-control select-control">
+                <option>Loading wallets...</option>
+              </select>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+              <div class="form-group">
+                <label>From Date</label>
+                <input type="date" id="stmt-start-date" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>To Date</label>
+                <input type="date" id="stmt-end-date" class="form-control">
+              </div>
+            </div>
+
+            <button id="btn-generate-statement" class="btn btn-outline" style="width:100%;">
+              <i class="fas fa-file-pdf"></i> Generate Monthly Statement
+            </button>
+
+            <div id="stmt-status-box" style="margin-top:14px; display:none;"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Deposit Funds Modal -->
+  <div class="modal-overlay" id="deposit-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fas fa-money-bill-wave" style="color:var(--accent-emerald);"></i> Fund Account Wallet</h3>
+        <button class="modal-close" onclick="closeDepositModal()">&times;</button>
+      </div>
+
+      <div class="form-group">
+        <label>Deposit Currency</label>
+        <select id="deposit-currency" class="form-control select-control">
+          <option value="USD">USD - US Dollar ($)</option>
+          <option value="GHS">GHS - Ghanaian Cedi (GH₵)</option>
+          <option value="GBP">GBP - British Pound (£)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Amount</label>
+        <input type="number" id="deposit-amount" class="form-control" placeholder="500.00" step="0.01" min="1">
+      </div>
+
+      <div class="form-group">
+        <label>Funding Source</label>
+        <input type="text" id="deposit-desc" class="form-control" value="International Bank Wire Inflow">
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+        <button class="btn btn-outline" onclick="closeDepositModal()">Cancel</button>
+        <button class="btn btn-primary" id="btn-submit-deposit">
+          <i class="fas fa-check"></i> Complete Deposit
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- App Script -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

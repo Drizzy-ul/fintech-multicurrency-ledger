@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.env
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Databases & Local state
+*.db
+*.sqlite3
+test_fintech.db
+fintech_ledger.db
+
+# Storage / Statement Output (ignore generated statement PDFs except directory structure)
+storage/statements/*.pdf
+!storage/statements/.gitkeep
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
