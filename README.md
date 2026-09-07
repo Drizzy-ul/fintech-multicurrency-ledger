@@ -1,6 +1,22 @@
-# FinTech Multi-Currency Ledger & International Payment System
+<div align="center">
 
-A production-grade, double-entry financial ledger backend supporting multi-currency wallets (**Ghanaian Cedis [GHS]**, **US Dollars [USD]**, and **British Pounds [GBP]**), real-time live currency exchange rate conversion with **Redis** caching, strict mathematical ledger invariants, and asynchronous monthly **Transaction PDF Statements** generated using **Celery** and **ReportLab**.
+# 💳 FinTech Multi-Currency Ledger & International Payment System
+
+### Production-Grade Double-Entry Bookkeeping Backend with Live FX Engine, Celery PDF Generation & Pessimistic Concurrency
+
+[![CI Status](https://github.com/Drizzy-ul/fintech-multicurrency-ledger/actions/workflows/ci.yml/badge.svg)](https://github.com/Drizzy-ul/fintech-multicurrency-ledger/actions)
+[![Python Version](https://img.shields.io/badge/python-3.11%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1.svg?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Redis](https://img.shields.io/badge/Redis-Cache-DC382D.svg?logo=redis&logoColor=white)](https://redis.io/)
+[![Celery](https://img.shields.io/badge/Celery-Distributed%20Tasks-37814A.svg?logo=celery&logoColor=white)](https://docs.celeryq.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
+<p align="center">
+  A high-reliability double-entry financial ledger backend supporting multi-currency wallets (<b>Ghanaian Cedis [GHS]</b>, <b>US Dollars [USD]</b>, and <b>British Pounds [GBP]</b>), real-time live currency exchange rate conversion with <b>Redis</b> caching, strict mathematical ledger invariants, and asynchronous monthly <b>Transaction PDF Statements</b> generated using <b>Celery</b> and <b>ReportLab</b>.
+</p>
+
+</div>
 
 ---
 
