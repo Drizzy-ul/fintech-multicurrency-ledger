@@ -1,5 +1,5 @@
 import enum
-from datetime import datetime
+from datetime import datetime, timezone
 from decimal import Decimal
 from sqlalchemy import Column, Integer, String, Numeric, DateTime, ForeignKey, Enum as SQLEnum, JSON, Index
 from sqlalchemy.orm import relationship
@@ -55,7 +55,7 @@ class JournalEntry(Base):
     fee_currency = Column(String(3), nullable=True)
     
     extra_metadata = Column(JSON, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False, index=True)
 
     # Relationships
     postings = relationship("LedgerPosting", back_populates="journal_entry", cascade="all, delete-orphan")
@@ -78,7 +78,7 @@ class LedgerPosting(Base):
     
     # Running balance snapshot for quick statement rendering and audit verification
     balance_after = Column(Numeric(18, 4), nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False, index=True)
 
     # Relationships
     journal_entry = relationship("JournalEntry", back_populates="postings")
