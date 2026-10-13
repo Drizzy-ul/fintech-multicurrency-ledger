@@ -1,4 +1,4 @@
-﻿name: CI & Ledger Invariant Testing
+name: CI & Ledger Invariant Testing
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
       PYTHONIOENCODING: "utf-8"
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
