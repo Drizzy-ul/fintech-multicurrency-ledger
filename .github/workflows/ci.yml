@@ -1,4 +1,4 @@
-﻿name: CI & Ledger Invariant Testing
+name: CI & Ledger Invariant Testing
 
 on:
   push:
@@ -14,9 +14,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python-version: ["3.11", "3.12"]
+        python-version: ["3.10", "3.11", "3.12"]
 
     env:
+      PYTHONPATH: "."
       PYTHONUTF8: "1"
       PYTHONIOENCODING: "utf-8"
 
@@ -35,4 +36,4 @@ jobs:
 
     - name: Run Test Suite
       run: |
-        pytest tests/ -v
+        python -m pytest tests/ -v
